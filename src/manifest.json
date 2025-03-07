@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "Cookie Sync Pro",
+  "minimum_chrome_version": "114",
+  "version": "1.0",
+  "action": {
+    "default_title": "Click to open panel"
+  },
+  "icons": {
+    "16": "assets/images/icon-16.png",
+    "32": "assets/images/icon-32.png",
+    "48": "assets/images/icon-48.png",
+    "128": "assets/images/icon-128.png"
+  },
+  "permissions": [
+    "cookies",
+    "storage",
+    "scripting",
+    "webRequest",
+    "activeTab",
+    "notifications",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "*://*.jd.com/*",
+    "*://*.m.jd.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://my.jd.com/*"
+      ],
+      "js": [
+        "assets/content.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "public/index.html",
+        "assets/*",
+        "vite.svg"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

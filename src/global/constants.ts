@@ -1,0 +1,5 @@
+export const QL_TOKEN: string = "ql_token"
+export const JD_COOKIE: string = "JD_COOKIE"
+export const JD_LOGIN_URL: string = "https://plogin.m.jd.com/login/login"
+export const JD_MAIN_URL: string = "https://m.jd.com/"
+export const JD_MY_URL: string = "https://my.m.jd.com/"
