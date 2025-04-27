@@ -3,8 +3,21 @@
     <!-- 左侧导航 -->
     <el-aside width="220px" class="sider">
       <div class="sider-header">
-        <h1 class="app-title">Cookie同步工具</h1>
+        <h1 class="app-title">Cookie</h1>
+        <div class="header-actions">
+          <el-button
+              @click="toggleDark()"
+              size="small"
+              circle
+              :icon="isDark ? Moon : Sunny"
+              class="theme-toggle"
+          />
+          <el-tag size="small" type="info" effect="plain" class="version-tag">
+            v{{ version }}
+          </el-tag>
+        </div>
       </div>
+
 
       <el-menu
           :default-active="activeTab"
@@ -171,33 +184,109 @@
 <style scoped>
 .main-container {
   height: 100vh;
+  background-color: #f0f2f5;
 }
 
 .sider {
   background-color: #fff;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
-}
-
-.sider-header {
-  padding: 24px;
-  border-bottom: 1px solid #e4e7ed;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
 }
 
 .app-title {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #303133;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .side-menu {
   border-right: none;
 }
 
+.sider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid #e4e7ed;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theme-toggle {
+  background-color: transparent;
+  color: inherit;
+}
+
+.version-tag {
+  background: transparent;
+  color: #909399;
+  border: none;
+}
+
+/* 暗黑模式适配 */
+html.dark {
+  background-color: #181818;
+}
+
+html.dark .sider {
+  background-color: #1f1f1f;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
+}
+
+html.dark .el-card {
+  background-color: #2b2b2b;
+  border-color: #333;
+}
+
+html.dark .content-wrapper {
+  background-color: #181818;
+}
+
+html.dark .el-menu {
+  background-color: #1f1f1f;
+}
+
+html.dark .el-menu-item {
+  color: #ccc;
+}
+
+html.dark .el-menu-item.is-active {
+  background-color: #3a3a3a;
+  color: #67c23a;
+}
+
+html.dark .app-title {
+  color: #f2f2f2;
+}
+
+html.dark .version-footer {
+  color: #aaa;
+}
+
+
+.side-menu .el-menu-item {
+  font-size: 15px;
+}
+
+.side-menu .el-menu-item:hover {
+  background-color: #f5f7fa;
+}
+
+.side-menu .el-menu-item.is-active {
+  background-color: #f0f9eb;
+  color: #67c23a;
+}
+
 .content-wrapper {
   position: relative;
-  background-color: #f5f7fa;
-  padding: 20px;
+  background-color: #f9fafc;
+  padding: 30px 20px;
+  overflow-y: auto;
 }
 
 .content-container {
@@ -206,49 +295,97 @@
 }
 
 .card-header {
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #303133;
+}
+
+.el-card {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.el-form {
+  margin-top: 20px;
+}
+
+.el-form-item {
+  margin-bottom: 20px;
+}
+
+.el-form-item .el-input,
+.el-form-item .el-textarea {
+  width: 100%;
+}
+
+.el-button {
+  margin-top: 10px;
 }
 
 .data-table {
-  margin-top: 24px;
+  margin-top: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.data-table .el-table__header {
+  background-color: #f5f7fa;
+}
+
+.data-table .el-button {
+  margin: 0 auto;
+  display: block;
 }
 
 .version-footer {
   position: fixed;
-  bottom: 20px;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
+  font-size: 12px;
+  color: #909399;
 }
 
 .float-btn {
   position: fixed;
   right: 40px;
   bottom: 40px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  animation: float 2s infinite ease-in-out;
   z-index: 1000;
 }
 
-/* 过渡动画 */
+/* 按钮浮动动画 */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* 页面切换动画 */
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(20px);
 }
 
-/* 响应式调整 */
+/* 小屏幕适配 */
 @media (max-width: 768px) {
   .sider {
-    width: 180px !important;
+    width: 160px !important;
   }
 
   .content-wrapper {
-    padding: 15px;
+    padding: 20px 10px;
   }
 
   .float-btn {
@@ -257,14 +394,18 @@
   }
 }
 </style>
+
 <script setup lang="ts">
 import {onMounted, reactive, ref, toRaw} from 'vue'
-import {Lightning} from "@element-plus/icons-vue"
+import {Lightning, Moon, Sunny} from "@element-plus/icons-vue"
 import {ElForm} from "element-plus";
 import type {Account, QinglongConfig, TableItem} from "@/types"
 import {JD_LOGIN_URL} from "@/global/constants.ts";
 import {getConfig, openWindow} from "@/utils";
+import {useDark, useToggle} from '@vueuse/core'
 
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 const targetUrl = ref<string>(JD_LOGIN_URL)
 const activeTab = ref('config')
 const version = ref('1.0.0')
